@@ -1,0 +1,120 @@
+<div class="profile-container" *ngIf="user">
+  <!-- Profile Card -->
+  <mat-card class="profile-card">
+    <div class="profile-header">
+      <div class="profile-avatar">
+        <span>{{ getInitials(user.firstname, user.lastname) }}</span>
+      </div>
+      <div class="profile-name">{{ user.firstname }} {{ user.lastname }}</div>
+      <div class="profile-role">{{ user.role }}</div>
+    </div>
+  </mat-card>
+
+  <!-- Personal Information Card -->
+  <mat-card class="info-card">
+    <div class="section-title">
+      <mat-icon class="info-section-icon">person</mat-icon>
+      Personal Information
+    </div>
+    <div class="info-grid">
+      <div class="info-item">
+        <mat-icon class="info-icon">account_circle</mat-icon>
+        <div class="info-content">
+          <span class="info-label">Username</span>
+          <span class="info-value">{{ user.username }}</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <mat-icon class="info-icon">email</mat-icon>
+        <div class="info-content">
+          <span class="info-label">Email</span>
+          <span class="info-value">{{ user.email }}</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <mat-icon class="info-icon">badge</mat-icon>
+        <div class="info-content">
+          <span class="info-label">First Name</span>
+          <span class="info-value">{{ user.firstname }}</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <mat-icon class="info-icon">badge</mat-icon>
+        <div class="info-content">
+          <span class="info-label">Last Name</span>
+          <span class="info-value">{{ user.lastname }}</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <mat-icon class="info-icon">work</mat-icon>
+        <div class="info-content">
+          <span class="info-label">Role</span>
+          <span class="info-value">{{ user.role }}</span>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <!-- Advanced Settings Card -->
+  <mat-card class="settings-card">
+    <div class="section-title">
+      <mat-icon class="info-section-icon">settings</mat-icon>
+      Advanced Settings
+    </div>
+    
+    <mat-expansion-panel class="settings-panel" [expanded]="passwordPanelOpen" (opened)="passwordPanelOpen = true" (closed)="passwordPanelOpen = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span class="icon-bg"><mat-icon class="info-icon">security</mat-icon></span>
+          <span>Security Settings</span>
+        </mat-panel-title>
+        <mat-panel-description>
+          Change your password
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <div class="password-form-container">
+        <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+          <mat-form-field appearance="outline" class="password-input">
+            <mat-label>Current Password</mat-label>
+            <input matInput type="password" formControlName="oldPassword" required>
+            <mat-icon matSuffix class="info-icon">lock</mat-icon>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="password-input">
+            <mat-label>New Password</mat-label>
+            <input matInput type="password" formControlName="newPassword" required>
+            <mat-icon matSuffix class="info-icon">lock_open</mat-icon>
+            <mat-hint>Password must be at least 6 characters long</mat-hint>
+          </mat-form-field>
+          
+          <div class="form-actions">
+            <button mat-raised-button color="primary" 
+                    [disabled]="passwordForm.invalid || loading"
+                    class="update-btn">
+              <mat-icon *ngIf="!loading" class="info-icon">shield</mat-icon>
+              <mat-icon *ngIf="loading" class="spinning info-icon">sync</mat-icon>
+              {{ loading ? 'Updating...' : 'Update Password' }}
+            </button>
+          </div>
+          
+          <div class="message-container">
+            <div class="success-message" *ngIf="passwordSuccess">
+              <mat-icon class="info-icon">check_circle</mat-icon>
+              {{ passwordSuccess }}
+            </div>
+            <div class="error-message" *ngIf="error">
+              <mat-icon class="info-icon">error</mat-icon>
+              {{ error }}
+            </div>
+          </div>
+        </form>
+      </div>
+    </mat-expansion-panel>
+  </mat-card>
+</div>
+
+<mat-card *ngIf="!user && error" class="error-card">
+  <mat-icon>error_outline</mat-icon>
+  <span>{{ error }}</span>
+</mat-card>

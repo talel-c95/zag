@@ -1,0 +1,23 @@
+.edit-establishment-form {
+  .full-width {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  mat-dialog-content {
+    padding-bottom: 0;
+  }
+  mat-dialog-actions {
+    margin-top: 1.5rem;
+    button {
+      min-width: 90px;
+    }
+  }
+  @media (max-width: 600px) {
+    .full-width {
+      margin-bottom: 0.5rem;
+    }
+    mat-dialog-actions {
+      margin-top: 0.5rem;
+    }
+  }
+} 

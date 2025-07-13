@@ -1,0 +1,47 @@
+<div class="tasks-page-root">
+  <div class="tasks-card">
+    <div class="tasks-title">
+      <mat-icon class="tasks-title-icon">assignment</mat-icon>
+      Post Task to Employee
+    </div>
+    <form [formGroup]="taskForm" (ngSubmit)="submitTask()">
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" required></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="pending">Pending</mat-option>
+          <mat-option value="in_progress">In Progress</mat-option>
+          <mat-option value="completed">Completed</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority" required>
+          <mat-option value="low">Low</mat-option>
+          <mat-option value="medium">Medium</mat-option>
+          <mat-option value="high">High</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Project</mat-label>
+        <input matInput formControlName="project" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Assign To</mat-label>
+        <mat-select formControlName="userId" required>
+          <mat-option *ngFor="let user of users" [value]="user.id">{{ user.firstname }} {{ user.lastname }} ({{ user.username }})</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">Post Task</button>
+    </form>
+    <div *ngIf="successMsg" class="success-msg">{{ successMsg }}</div>
+    <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+  </div>
+</div> 

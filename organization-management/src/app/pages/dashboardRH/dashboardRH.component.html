@@ -1,0 +1,140 @@
+<div class="dashboard-root">
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <img src="assets/images/logo.png" alt="Logo" class="sidebar-logo" />
+      <div>
+        <div class="portal-title">HR Portal</div>
+        <div class="portal-sub">Welcome back!</div>
+      </div>
+    </div>
+    <ul class="sidebar-nav">
+      <li>
+        <button mat-button class="sidebar-link-btn" [ngClass]="{'active': isDashboardActive()}" (click)="goToDashboard()">
+          <mat-icon>dashboard</mat-icon> Dashboard
+        </button>
+      </li>
+      <li>
+        <button mat-button class="sidebar-link-btn" [ngClass]="{'active': isTasksActive()}" (click)="goToTasks()">
+          <mat-icon>assignment</mat-icon> Tasks
+        </button>
+      </li>
+      <li>
+        <button mat-button class="sidebar-link-btn" [ngClass]="{'active': isEstablishmentsActive()}" (click)="goToEstablishments()">
+          <mat-icon>business</mat-icon> Establishments
+        </button>
+      </li>
+      <li>
+        <button mat-button class="sidebar-link-btn" [ngClass]="{'active': isOrgUnitsActive()}" (click)="goToOrgUnits()">
+          <mat-icon>apartment</mat-icon> Organizational Units
+        </button>
+      </li>
+      <li>
+        <button mat-button class="sidebar-link-btn" [ngClass]="{'active': isProfileActive()}" (click)="goToProfile()">
+          <mat-icon>person</mat-icon> Profile
+        </button>
+      </li>
+      <li>
+        <button mat-button class="sidebar-link-btn" [ngClass]="{'active': isMeetingsActive()}" (click)="goToMeetings()">
+          <mat-icon>event</mat-icon> Meetings
+        </button>
+      </li>
+    </ul>
+    <div class="sidebar-footer">
+      <button mat-button color="warn" (click)="logout()">
+        <mat-icon>logout</mat-icon> Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="top-bar">
+      <div class="greeting">
+        <h2>Welcome, HR Manager!</h2>
+        <div class="subtitle">Manage your HR tasks and organizational units here.</div>
+      </div>
+    </div>
+    <div class="hr-summary-cards" *ngIf="hrSummary">
+      <div class="summary-card" [@fadeInStagger]="0">
+        <div class="summary-icon establishments"><mat-icon>business</mat-icon></div>
+        <div class="summary-label">Establishments Managed</div>
+        <div class="summary-value">{{ hrSummary.establishmentsCount }}</div>
+      </div>
+      <div class="summary-card" [@fadeInStagger]="1">
+        <div class="summary-icon org-units"><mat-icon>account_tree</mat-icon></div>
+        <div class="summary-label">Org Units Updated Today</div>
+        <div class="summary-value">{{ hrSummary.orgUnitsUpdatedToday }}</div>
+      </div>
+      <div class="summary-card" [@fadeInStagger]="2">
+        <div class="summary-icon actions"><mat-icon>pending_actions</mat-icon></div>
+        <div class="summary-label">Pending HR Actions</div>
+        <div class="summary-value">{{ hrSummary.pendingHRActions }}</div>
+      </div>
+    </div>
+    <div class="dashboard-controls">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search employees</mat-label>
+        <input matInput [(ngModel)]="searchTerm" placeholder="Type a name...">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="sort-field">
+        <mat-label>Sort by</mat-label>
+        <mat-select [(ngModel)]="sortOption">
+          <mat-option value="alpha-asc">Name (A-Z)</mat-option>
+          <mat-option value="alpha-desc">Name (Z-A)</mat-option>
+          <mat-option value="pending-desc">Pending Tasks (High to Low)</mat-option>
+          <mat-option value="pending-asc">Pending Tasks (Low to High)</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <!-- HR Users & Tasks Table -->
+    <div class="users-cards-grid">
+      <div
+        class="user-card"
+        *ngFor="let user of filteredAndSortedUsers; let i = index"
+        [@fadeInStagger]="i">
+        <div class="user-header">
+          <div class="user-avatar">
+            {{ (user.firstname || '?')[0] }}{{ (user.lastname || '?')[0] }}
+          </div>
+          <div>
+            <div class="user-name">{{ user.firstname }} {{ user.lastname }}</div>
+            <div class="user-role">{{ user.role }}</div>
+          </div>
+        </div>
+        <div class="user-progress">
+          <mat-progress-bar
+            mode="determinate"
+            [value]="user.total ? (user.completed / user.total) * 100 : 0"
+            color="primary"
+            class="modern-progress"
+            [@progressAnim]="user.completed">
+          </mat-progress-bar>
+          <div class="progress-label">
+            <span class="progress-count">{{ user.completed }}/{{ user.total }}</span>
+            <span>tasks completed</span>
+          </div>
+        </div>
+        <div class="user-tasks-list">
+          <div
+            class="task-item"
+            *ngFor="let task of user.tasks; let j = index"
+            [@taskAnimStagger]="j">
+            <span class="task-icon" [ngClass]="{'completed': task.completed}">
+              <mat-icon>
+                {{ task.completed ? 'check_circle' : 'radio_button_unchecked' }}
+              </mat-icon>
+            </span>
+            <span class="task-title" [class.completed]="task.completed">{{ task.title }}</span>
+            <span class="task-status-badge" [ngClass]="{'completed': task.completed, 'pending': !task.completed}">
+              <mat-icon class="badge-icon" *ngIf="task.completed">check</mat-icon>
+              <mat-icon class="badge-icon" *ngIf="!task.completed">hourglass_empty</mat-icon>
+              {{ task.completed ? 'Completed' : 'Pending' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End HR Users & Tasks Table -->
+  </div>
+</div> 

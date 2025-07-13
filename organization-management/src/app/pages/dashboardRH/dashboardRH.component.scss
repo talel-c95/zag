@@ -1,0 +1,310 @@
+.dashboard-root {
+  display: flex;
+}
+.sidebar {
+  width: 240px;
+  background: #fff;
+  box-shadow: 2px 0 12px 0 rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 2rem 1.5rem 1rem 1.5rem;
+}
+.sidebar-logo {
+  height: 38px;
+  margin-right: 12px;
+  vertical-align: middle;
+}
+.portal-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.portal-sub {
+  color: #888;
+  font-size: 1rem;
+}
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar-nav li {
+  margin-bottom: 1.4rem;
+}
+.sidebar-nav a,
+.sidebar-link-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  color: #000 !important;
+  font-size: 1.08rem;
+  text-align: left;
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 2rem;
+  justify-content: flex-start;
+}
+.sidebar-nav a:hover,
+.sidebar-link-btn:hover {
+  background: #f0f4fa;
+  color: #1976d2 !important;
+}
+.sidebar-nav a:hover mat-icon,
+.sidebar-link-btn:hover mat-icon {
+  color: #1976d2 !important;
+}
+.sidebar-nav a.active,
+.sidebar-nav a.router-link-active,
+.sidebar-link-btn.active {
+  background: #e3f7fd;
+  border-left: 4px solid #1976d2;
+  color: #1976d2;
+  border-radius: 2rem;
+}
+.sidebar-nav a.active mat-icon,
+.sidebar-nav a.router-link-active mat-icon,
+.sidebar-link-btn.active mat-icon {
+  color: #1976d2;
+}
+.sidebar-nav mat-icon {
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  color: #000 !important;
+  transition: color 0.2s;
+}
+.sidebar-footer {
+  margin-top: auto;
+  padding: 1.5rem;
+}
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.greeting h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+.subtitle {
+  color: #888;
+  font-size: 1.1rem;
+}
+.sidebar-link-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  color: #000 !important;
+  font-size: 1.08rem;
+  text-align: left;
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  font-weight: 500;
+}
+.sidebar-link-btn:hover {
+  background: #f0f4fa;
+  color: #1976d2;
+}
+.sidebar-link-btn.active {
+  background: #e3f2fd;
+  border-left: 4px solid #1976d2;
+  color: #1976d2;
+}
+.users-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.user-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 24px rgba(60,60,120,0.08);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s, transform 0.2s;
+  &:hover {
+    box-shadow: 0 8px 32px rgba(60,60,120,0.16);
+    transform: translateY(-4px) scale(1.02);
+  }
+}
+.user-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #1976d2 60%, #42a5f5 100%);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.12);
+}
+.user-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.user-role {
+  font-size: 0.95rem;
+  color: #888;
+}
+.user-progress {
+  margin-bottom: 1.2rem;
+}
+.modern-progress {
+  height: 8px !important;
+  border-radius: 4px;
+  margin-bottom: 0.3rem;
+}
+.progress-label {
+  font-size: 0.95rem;
+  color: #1976d2;
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  .progress-count {
+    font-weight: 700;
+    color: #1976d2;
+  }
+}
+.user-tasks-list {
+  margin-top: 0.5rem;
+}
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  .task-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1976d2;
+    &.completed {
+      color: #43a047;
+    }
+  }
+  .task-title.completed {
+    text-decoration: line-through;
+    color: #888;
+  }
+  .task-status-badge {
+    margin-left: auto;
+    font-size: 0.9rem;
+    border-radius: 1rem;
+    padding: 0.1rem 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: #fff3e0;
+    color: #ff9800;
+    transition: background 0.3s, color 0.3s;
+    .badge-icon {
+      font-size: 1.1rem;
+    }
+    &.completed {
+      background: #e3f7fd;
+      color: #1976d2;
+    }
+    &.pending {
+      background: #fff3e0;
+      color: #ff9800;
+    }
+  }
+}
+.dashboard-controls {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+.search-field, .sort-field {
+  min-width: 220px;
+}
+.hr-summary-cards {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.summary-card {
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 12px rgba(60,60,120,0.07);
+  padding: 1.5rem 2.2rem;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+  &:hover {
+    box-shadow: 0 6px 24px rgba(60,60,120,0.13);
+    transform: translateY(-2px) scale(1.03);
+  }
+}
+.summary-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  &.establishments {
+    background: linear-gradient(135deg, #1976d2 60%, #42a5f5 100%);
+    color: #fff;
+  }
+  &.org-units {
+    background: linear-gradient(135deg, #43a047 60%, #66bb6a 100%);
+    color: #fff;
+  }
+  &.actions {
+    background: linear-gradient(135deg, #ff9800 60%, #ffd54f 100%);
+    color: #fff;
+  }
+}
+.summary-label {
+  font-size: 1.05rem;
+  color: #888;
+  margin-bottom: 0.2rem;
+}
+.summary-value {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #222;
+  margin-top: 0.1rem;
+} 

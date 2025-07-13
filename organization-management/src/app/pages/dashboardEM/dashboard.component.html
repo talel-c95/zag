@@ -1,0 +1,202 @@
+<div class="dashboard-root">
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <mat-icon>account_circle</mat-icon>
+      <div>
+        <div class="portal-title">Employee Portal</div>
+        <div class="portal-sub">Welcome back!</div>
+      </div>
+    </div>
+    <ul class="sidebar-nav">
+      <li class="active"><mat-icon>dashboard</mat-icon> Dashboard</li>
+      <li routerLink="/calendar" routerLinkActive="active"><mat-icon>calendar_today</mat-icon> Calendar</li>
+      <li routerLink="/contact" routerLinkActive="active"><mat-icon>mail</mat-icon> Contact</li>
+      <li routerLink="/profile" routerLinkActive="active"><mat-icon>person</mat-icon> Profile</li>
+    </ul>
+    <div class="sidebar-footer">
+      <button mat-button color="warn" (click)="logout()">
+        <mat-icon>logout</mat-icon> Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="greeting">
+        <h2>Good morning, {{ user?.firstname || 'Employee' }}! <span class="wave">👋</span></h2>
+        <div class="subtitle">Here's what's happening with your work today.</div>
+      </div>
+      <div class="user-info">
+        <span class="user-name">{{ user?.firstname }} {{ user?.lastname }}</span>
+        <span class="user-role">{{ user?.role }}</span>
+        <button mat-icon-button class="profile-btn" (click)="goToProfile()" matTooltip="Profile">
+          <mat-icon>person</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+      <mat-card class="summary-card hours">
+        <div class="card-title">Hours This Week</div>
+        <div class="card-value">{{ hoursThisWeek }}</div>
+        <mat-icon>schedule</mat-icon>
+      </mat-card>
+      <mat-card class="summary-card completed">
+        <div class="card-title">Tasks Completed</div>
+        <div class="card-value">{{ tasksCompleted }}</div>
+        <mat-icon>check_circle</mat-icon>
+      </mat-card>
+      <mat-card class="summary-card pending">
+        <div class="card-title">Pending Tasks</div>
+        <div class="card-value">{{ tasksPending }}</div>
+        <mat-icon>target</mat-icon>
+      </mat-card>
+      <mat-card class="summary-card meetings">
+        <div class="card-title">Meetings Today</div>
+        <div class="card-value">{{ meetingsToday.length }}</div>
+        <mat-icon>event</mat-icon>
+      </mat-card>
+      <mat-card class="summary-card all-meetings">
+        <div class="card-title">All Meetings</div>
+        <div class="card-value">{{ meetingsAll.length }}</div>
+        <mat-icon>event_note</mat-icon>
+      </mat-card>
+    </div>
+    <!-- Widgets Row -->
+    <div class="widgets-row">
+      <!-- Time Tracking Widget -->
+      <mat-card class="widget time-tracking">
+        <div class="widget-title"><mat-icon>access_time</mat-icon> Time Tracking</div>
+        <div class="widget-content">
+          <div *ngIf="!clockedIn">You haven't clocked in today</div>
+          <button mat-raised-button color="primary" (click)="clockIn()" *ngIf="!clockedIn">Clock In</button>
+          <div *ngIf="clockedIn">You are clocked in.<br>Time present: <span class="elapsed-time">{{ elapsedTime }}</span></div>
+        </div>
+      </mat-card>
+
+      <!-- Today's Meetings Widget -->
+      <mat-card class="widget meetings">
+        <div class="widget-title"><mat-icon>event</mat-icon> Today's Meetings</div>
+        <div class="widget-content">
+          <ul class="meetings-list">
+            <li *ngFor="let meeting of meetingsToday">
+              <div class="meeting-title">{{ meeting.title }}</div>
+              <div class="meeting-time">{{ meeting.time }}</div>
+              <div class="meeting-location">{{ meeting.location }}</div>
+              <div class="meeting-type" [ngClass]="meeting.type">{{ meeting.type }}</div>
+            </li>
+          </ul>
+        </div>
+      </mat-card>
+    </div>
+    <div class="full-row">
+      <!-- Recent Tasks Full-Width Card -->
+      <mat-card class="full-card recent-tasks">
+        <div class="widget-title"><mat-icon>check_circle</mat-icon> Recent Tasks</div>
+        <div class="widget-content">
+          <ul class="tasks-list-vertical">
+            <li *ngFor="let task of recentTasks" class="task-row-vertical">
+              <div class="task-info">
+                <span class="task-title" [class.completed]="task.completed">{{ task.title }}</span>
+                <span class="task-project">{{ task.project }}</span>
+                <span class="task-priority" [ngClass]="task.priority">{{ task.priority }}</span>
+              </div>
+              <div class="task-action">
+                <mat-checkbox
+                  [checked]="task.completed"
+                  [disabled]="task.completed"
+                  (change)="confirmAndMarkTaskCompleted(task)"
+                  *ngIf="!task.completed"
+                ></mat-checkbox>
+                <span *ngIf="task.completed" class="task-status-done">Completed</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </mat-card>
+    </div>
+    <div class="widgets-row">
+      <!-- All Meetings Widget -->
+      <mat-card class="widget all-meetings">
+        <div class="widget-title"><mat-icon>event_note</mat-icon> All Meetings</div>
+        <div class="widget-content">
+          <ul class="meetings-list">
+            <li *ngFor="let meeting of meetingsAll">
+              <div class="meeting-title">{{ meeting.title }}</div>
+              <div class="meeting-date">{{ meeting.date }}</div>
+              <div class="meeting-time">{{ meeting.time }}</div>
+              <div class="meeting-location">{{ meeting.location }}</div>
+              <div class="meeting-type" [ngClass]="meeting.type">{{ meeting.type }}</div>
+            </li>
+          </ul>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Performance Overview -->
+    <div class="performance-overview">
+      <div class="performance-title">Performance Overview</div>
+      <div class="performance-circles">
+        <div class="circle" *ngFor="let perf of performance">
+          <svg width="80" height="80">
+            <circle cx="40" cy="40" r="36" stroke="#e0e0e0" stroke-width="8" fill="none" />
+            <circle cx="40" cy="40" r="36" [attr.stroke]="perf.color" stroke-width="8" fill="none"
+              [attr.stroke-dasharray]="226.2" [attr.stroke-dashoffset]="226.2 - (perf.value / 100) * 226.2" stroke-linecap="round" />
+          </svg>
+          <div class="circle-value">{{ perf.value }}%</div>
+          <div class="circle-label">{{ perf.label }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Organizational Units Section -->
+    <div class="organizational-units-section">
+      <div class="ou-card">
+        <div class="ou-header">
+          <mat-icon class="ou-icon">apartment</mat-icon>
+          <span class="ou-title">Your Organizational Units</span>
+        </div>
+        <ng-container *ngIf="organizationalUnits.length > 0; else noUnits">
+          <mat-list>
+            <mat-list-item *ngFor="let unit of organizationalUnits">
+              <mat-icon matListIcon color="primary">business</mat-icon>
+              <div matLine class="ou-unit-name">{{ unit.name || unit.title || unit.id }}</div>
+              <div matLine *ngIf="unit.description" class="ou-unit-desc">{{ unit.description }}</div>
+            </mat-list-item>
+          </mat-list>
+        </ng-container>
+        <ng-template #noUnits>
+          <div class="ou-empty">
+            <mat-icon color="warn">info</mat-icon>
+            <span>No organizational units assigned yet.</span>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading State -->
+<div class="loading-container" *ngIf="loading">
+  <mat-spinner diameter="50"></mat-spinner>
+  <p>Loading your dashboard...</p>
+</div>
+
+<!-- Error State -->
+<div class="error-container" *ngIf="criticalError && !loading">
+  <mat-card class="error-card">
+    <mat-card-content>
+      <mat-icon color="warn">error</mat-icon>
+      <h3>Error</h3>
+      <p>{{ criticalError }}</p>
+      <button mat-raised-button color="primary" (click)="loadUserData()">
+        <mat-icon>refresh</mat-icon>
+        Retry
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div> 

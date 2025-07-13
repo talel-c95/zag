@@ -1,0 +1,41 @@
+.tasks-page-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f7fa;
+}
+.tasks-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.08);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  max-width: 500px;
+  width: 100%;
+  margin: 2rem 0;
+}
+.tasks-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  gap: 0.7rem;
+}
+.tasks-title-icon {
+  color: #1976d2;
+  font-size: 2rem;
+}
+mat-form-field {
+  margin-bottom: 1.2rem;
+}
+.success-msg {
+  color: #43a047;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+.error-msg {
+  color: #e53935;
+  margin-top: 1rem;
+  font-weight: 600;
+} 

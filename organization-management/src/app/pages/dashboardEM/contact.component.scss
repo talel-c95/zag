@@ -1,0 +1,36 @@
+.contact-card {
+  margin-top: 2.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 2.5rem;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(60,60,120,0.10);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.contact-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2979ff;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.contact-field {
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+.contact-success {
+  color: #43a047;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+.contact-error {
+  color: #d32f2f;
+  font-weight: 600;
+  margin-top: 1rem;
+} 

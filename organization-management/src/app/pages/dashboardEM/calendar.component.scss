@@ -1,0 +1,51 @@
+.calendar-fullscreen-root {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: #f7f9fb;
+  padding: 0;
+}
+.calendar-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #2979ff;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.fullscreen-calendar {
+  width: 100vw;
+  max-width: 600px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 8px 32px rgba(60,60,120,0.13);
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+}
+mat-calendar {
+  width: 100%;
+  --mat-calendar-cell-size: 44px;
+  --mat-calendar-header-text-size: 1.2rem;
+  --mat-calendar-body-label-text-size: 1rem;
+  font-size: 1.1rem;
+}
+.selected-date {
+  font-size: 1.3rem;
+  color: #2979ff;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+.meeting-day .mat-calendar-body-cell-content {
+  background-color: #8e24aa;
+  color: #fff;
+  border-radius: 50%;
+} 

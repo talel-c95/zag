@@ -1,0 +1,43 @@
+<div class="meetings-page-root">
+  <div class="meetings-card">
+    <div class="meetings-title">
+      <mat-icon class="meetings-title-icon">event</mat-icon>
+      Post Meeting to Employee
+    </div>
+    <form [formGroup]="meetingForm" (ngSubmit)="submitMeeting()">
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" required></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Date</mat-label>
+        <input matInput type="date" formControlName="date" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Time</mat-label>
+        <input matInput type="time" formControlName="time" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Location</mat-label>
+        <input matInput formControlName="location" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Type</mat-label>
+        <input matInput formControlName="type" required />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Assign To</mat-label>
+        <mat-select formControlName="userId" required>
+          <mat-option *ngFor="let user of users" [value]="user.id">{{ user.firstname }} {{ user.lastname }} ({{ user.username }})</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="meetingForm.invalid">Post Meeting</button>
+    </form>
+    <div *ngIf="successMsg" class="success-msg">{{ successMsg }}</div>
+    <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+  </div>
+</div> 

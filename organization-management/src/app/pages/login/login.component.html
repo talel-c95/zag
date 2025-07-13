@@ -1,0 +1,39 @@
+<div class="login-bg">
+  <div class="login-card full-screen">
+    <div class="login-left welcome">
+      <div class="welcome-content">
+        <h1>Welcome to Organization Management!</h1>
+        <p>
+          Manage your teams, projects, and workflow with ease. Our platform helps you stay organized, collaborate efficiently, and achieve your goals. Sign in to get started or create a new account to join our community!
+        </p>
+      </div>
+    </div>
+    <div class="login-right">
+      <div class="login-logo">
+        <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Logo" />
+        <h2>LOGIN</h2>
+      </div>
+      <form (ngSubmit)="onLogin()" [formGroup]="loginForm" class="login-form">
+        <mat-form-field appearance="fill" class="login-input">
+          <mat-icon matPrefix>person</mat-icon>
+          <input matInput placeholder="Username" formControlName="username" autocomplete="username" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="login-input">
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password" autocomplete="current-password" />
+          <button mat-icon-button matSuffix type="button" (click)="showPassword = !showPassword">
+            <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="signup-link-row">
+          <span>Don't have an account?</span>
+          <a routerLink="/signup">Sign up</a>
+        </div>
+        <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid || loading">
+          {{ loading ? 'Logging in...' : 'LOGIN' }}
+        </button>
+        <mat-error *ngIf="error">{{ error }}</mat-error>
+      </form>
+    </div>
+  </div>
+</div>

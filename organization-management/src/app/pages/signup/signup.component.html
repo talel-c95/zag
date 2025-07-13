@@ -1,0 +1,57 @@
+<div class="login-bg">
+  <div class="login-card full-screen">
+    <div class="login-left welcome">
+      <div class="welcome-content">
+        <h1>Welcome to Organization Management!</h1>
+        <p>
+          Create your account to join our community, manage your teams, and collaborate on projects. Enjoy a seamless experience designed to help you succeed. Sign up now and start your journey with us!
+        </p>
+      </div>
+    </div>
+    <div class="login-right">
+      <div class="login-logo">
+        <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Logo" />
+        <h2>SIGN UP</h2>
+      </div>
+      <form (ngSubmit)="onSignup()" [formGroup]="signupForm" class="login-form">
+        <div class="signup-row">
+          <mat-form-field appearance="fill" class="login-input half">
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput placeholder="First Name" formControlName="firstname" autocomplete="given-name" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="login-input half">
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput placeholder="Last Name" formControlName="lastname" autocomplete="family-name" />
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="fill" class="login-input">
+          <mat-icon matPrefix>person</mat-icon>
+          <input matInput placeholder="Username" formControlName="username" autocomplete="username" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="login-input">
+          <mat-icon matPrefix>email</mat-icon>
+          <input matInput placeholder="Email" formControlName="email" autocomplete="email" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="login-input">
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password" autocomplete="new-password" />
+          <button mat-icon-button matSuffix type="button" (click)="showPassword = !showPassword">
+            <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="login-input">
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput [type]="showConfirmPassword ? 'text' : 'password'" placeholder="Confirm Password" formControlName="confirmPassword" autocomplete="new-password" />
+          <button mat-icon-button matSuffix type="button" (click)="showConfirmPassword = !showConfirmPassword">
+            <mat-icon>{{ showConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="signup-link-row">
+          <span>Already have an account?</span>
+          <a routerLink="/login">Login</a>
+        </div>
+        <button mat-raised-button color="primary" class="login-btn" [disabled]="signupForm.invalid || loading">
+          {{ loading ? 'Signing up...' : 'SIGN UP' }}
+        </button>
+        <mat-error *ngIf="error">{{ error }}</mat-error>
+      </form>
